@@ -1,0 +1,46 @@
+body{
+    transition: all .5s ease;
+}
+
+#root {
+    margin-top: auto;
+    height: auto;
+}
+
+.ui .segment {
+    box-shadow: none;
+    border: none;
+}
+
+.column{
+    margin: 20px;
+}
+
+.menu{
+    padding: 40px;
+}
+
+button {
+    align-self: center;
+    background: transparent;
+    padding: 1rem 1rem;
+    margin-bottom: 0;
+    transition: all .5s ease;
+    color: #41403E;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    outline: none;
+    box-shadow: 20px 38px 34px -26px hsla(0, 0%, 0%, .2);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+}
+
+button:hover {
+    box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, .3);
+}
+
+@media (max-width:620px) {
+    button {
+        align-self: center;
+        margin-bottom: 2rem;
+    }
+}

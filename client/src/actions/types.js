@@ -1,0 +1,29 @@
+
+export const CREATE_HOME = 'CREATE_HOME';
+export const FETCH_STREAM = 'FETCH_STREAM';
+export const DELETE_STREAM = 'DELETE_STREAM';
+export const EDIT_HOME = 'EDIT_HOME';
+
+export const FETCH_HOMES = 'FETCH_HOMES';
+export const SELECTED_HOME = 'SELECTED_HOME';
+
+export const FETCH_USERS = 'FETCH_USERS';
+export const SELECTED_USER = 'SELECTED_USER';
+
+export const FETCH_POINTS_LIST = 'FETCH_POINTS_LIST';
+export const FETCH_POINTS = 'FETCH_POINTS';
+export const SELECTED_HOME_USER_POINTS = 'SELECTED_HOME_USER_POINTS';
+
+export const FETCH_TASKS = 'FETCH_TASKS';
+export const SELECTED_TASK = 'SELECTED_TASK';
+export const CREATE_TASK = 'CREATE_TASK';
+export const ASSIGN_TASK = 'ASSIGN_TASK';
+export const EDIT_TASK = 'EDIT_TASK';
+
+export const FETCH_REWARDS = 'FETCH_REWARDS';
+export const SELECTED_REWARD = 'SELECTED_REWARD';
+export const CREATE_REWARD = 'CREATE_REWARD';
+export const ASSIGN_REWARD = 'ASSIGN_REWARD';
+export const EDIT_REWARD = 'EDIT_REWARD';
+
+
