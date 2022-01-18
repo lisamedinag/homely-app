@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
 import { connect } from "react-redux";
-import Loading from "../utils/Loading";
 import { Link } from "react-router-dom";
 
+import { Loading } from "../exportedComponents"
 
 class SelectedHome extends Component {
 
@@ -20,23 +19,31 @@ class SelectedHome extends Component {
                 </div>
                 <div className="center aligned sixteen wide column">
                     <Link to="/home/dashboard/users">
-                        <button className="button">Users</button>
+                        <button className="button drawn-button">Users</button>
                     </Link>
                 </div>
                 <div className="center aligned sixteen wide column">
                     <Link to="/home/dashboard/tasks">
-                        <button className="button">Tasks</button>
+                        <button className="button drawn-button">Tasks</button>
                     </Link>
                 </div>
                 <div className="center aligned sixteen wide column">
                     <Link to="/home/dashboard/rewards">
-                        <button className="button">Rewards</button>
+                        <button className="button drawn-button">Rewards</button>
                     </Link>
                 </div>
-                <div className="center aligned sixteen wide column">
-                    <Link to="/home/dashboard/edit">
-                        <button className="button">Edit</button>
-                    </Link>
+
+                <div className="row">
+                    <div className="center aligned six wide column">
+                        <Link to="/home/dashboard/edit">
+                            <button className="drawn-button">Edit</button>
+                        </Link>
+                    </div>
+                    <div className="center aligned six wide column">
+                        <Link to="/home/dashboard/invite">
+                            <button className="drawn-button">Invite</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         );

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-
 import {connect} from "react-redux";
-import Loading from "../utils/Loading";
 
+import { Loading } from "../exportedComponents"
 
 class SelectedPoints extends Component {
 

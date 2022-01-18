@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Loading from "../utils/Loading";
-import AutoAssignOrCompleteRewardButton from "./AutoAssignOrCompleteRewardButton";
 import {Link} from "react-router-dom";
+import {deleteReward} from "../../actions";
+
+import { Loading, AutoAssignOrCompleteRewardButton, ModalConfirmation } from "../exportedComponents"
+
 
 class SelectedReward extends Component {
+
+    confirmToDeleteReward(reward){
+
+        this.props.deleteReward(reward._id)
+    }
+
+
     render() {
         if (this.props.selectedReward === null) {
-            return <div><Loading /></div>
+            return <div><Loading/></div>
         }
-
-        console.log(this.props.selectedReward)
+ 
         return (
             <div className="ui centered grid ">
                 <div className="center aligned sixteen wide column">
@@ -18,7 +26,7 @@ class SelectedReward extends Component {
                 </div>
                 <div className="center aligned sixteen wide column">
                     <p>Description:
-                        <br /> {this.props.selectedReward.description}</p>
+                        <br/> {this.props.selectedReward.description}</p>
                 </div>
                 <div className="center aligned sixteen wide column">
                     <p>Reward points: {this.props.selectedReward.pointsWorth}</p>
@@ -28,21 +36,22 @@ class SelectedReward extends Component {
                 </div>
 
 
-
-
-                {/*{this.props.selectedReward.claimedByUser &&*/}
-                {/*    <div className="center aligned sixteen wide column">*/}
-                {/*        <p>Task assigned user: {this.props.selectedTask.claimedByUser}</p>*/}
-                {/*    </div>*/}
-                {/*}*/}
-
                 <AutoAssignOrCompleteRewardButton/>
 
-                <div className="center aligned sixteen wide column">
-                    <Link to="/home/dashboard/rewards/edit">
-                        <button className="button">Edit</button>
-                    </Link>
+                <div className="row ">
+                    <div className="center aligned six wide column">
+                        <Link to="/home/dashboard/rewards/edit">
+                            <button className="drawn-button">Edit</button>
+                        </Link>
+                    </div>
+                    <div className=" center aligned six wide column">
+                        <ModalConfirmation queryMessage="Are u sure you want to delete" introButtonMessage="Delete"
+                                           delete={this.props.deleteReward} item={this.props.selectedReward}
+                                           confirmButtonMessage="Delete"/>
+                    </div>
+
                 </div>
+
             </div>
         );
     }
@@ -50,7 +59,7 @@ class SelectedReward extends Component {
 
 
 const mapStateToProps = state => {
-    return { selectedReward: state.selectedReward };
+    return {selectedReward: state.selectedReward};
 };
 
-export default connect(mapStateToProps)(SelectedReward);
+export default connect(mapStateToProps, {deleteReward})(SelectedReward);

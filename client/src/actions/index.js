@@ -18,9 +18,17 @@ import {
     SELECTED_TASK,
     CREATE_TASK,
     SELECTED_REWARD,
-    CREATE_REWARD, ASSIGN_TASK, EDIT_REWARD, EDIT_TASK,
+    CREATE_REWARD,
+    ASSIGN_TASK,
+    EDIT_REWARD,
+    EDIT_TASK,
+    DELETE_HOME,
+    DELETE_REWARD,
+    DELETE_TASK,
+    FETCH_INVITATION_CODE,
+    VALIDATE_INVITATION_CODE, FETCH_HOME, FETCH_INVITATION_CODE_LIST,
 } from "./types";
-
+import invitationService from "../services/invitationService";
 
 
 export const fetchHomes = () => async dispatch => {
@@ -31,7 +39,7 @@ export const fetchHomes = () => async dispatch => {
 
 export const fetchPopulatedHomes = () => async dispatch => {
     const response = await homeService.get('/populatedHomes');
-    dispatch({ type: FETCH_HOMES, payload: response.data });
+    dispatch({type: FETCH_HOMES, payload: response.data});
 };
 
 export const createHome = formValues => async (dispatch) => {
@@ -54,6 +62,14 @@ export const editHome = (newName, homeId) => async (dispatch) => {
     }
     const response = await homeService.put('/edithome/' + homeId, homeToCreate);
     dispatch({type: CREATE_HOME, payload: response.data});
+    history.goBack();
+};
+
+export const deleteHome = homeId => async (dispatch) => {
+
+
+    await homeService.delete('/deletehome/' + homeId);
+    dispatch({type: DELETE_HOME, payload: homeId});
     history.goBack();
 };
 
@@ -83,8 +99,33 @@ export const fetchPointsList = () => async dispatch => {
 
 export const fetchPointsByUserAndHome = (userId, homeId) => async dispatch => {
     const response = await pointService.get(`/user/${userId}/home/${homeId}`);
+    dispatch({type: FETCH_POINTS, payload: response.data});
+}
 
-    dispatch({ type: FETCH_POINTS, payload: response.data });
+export const addPoints = (userId, homeId, taskPoints) => async dispatch => {
+    const data = {
+        user: userId,
+        home: homeId,
+        points: parseInt(taskPoints)
+    }
+
+
+    const response = await pointService.post("/addPoints", data);
+    dispatch({type: FETCH_POINTS, payload: response.data});
+
+}
+
+export const buyReward = (userId, homeId, rewardPointsWorth) => async dispatch => {
+
+    const data = {
+        user: userId,
+        home: homeId,
+        pointsWorth: parseInt(rewardPointsWorth)
+    }
+
+    const response = await pointService.post("/substractPoints", data);
+    dispatch({type: FETCH_POINTS, payload: response.data});
+
 }
 
 export const selectHome = (home) => {
@@ -110,8 +151,8 @@ export const selectTask = (task) => {
 
 export const createTask = formValues => async (dispatch) => {
 
-    const userId = formValues.user;
-    const status = formValues.form.assignedUser !== '' ? 'ASSIGNED' : 'AVAILABLE';
+
+    const status = formValues.form.assignedUser === 'AVAILABLE' ? 'AVAILABLE' : 'ASSIGNED';
     const taskToCreate = {
         name: formValues.form.name,
         points: parseInt(formValues.form.points),
@@ -125,6 +166,7 @@ export const createTask = formValues => async (dispatch) => {
     dispatch({type: CREATE_TASK, payload: response.data});
     history.goBack();
 };
+
 
 
 export const editTask = formValues => async (dispatch) => {
@@ -147,14 +189,17 @@ export const updateStatusAndUserAssignedTask = (taskId, status, userId,) => asyn
         status: status,
         assignedUser: userId,
     }
-    console.log(taskToAssign)
 
     const response = await tasksService.put('/editTask/' + taskId, taskToAssign);
     dispatch({type: ASSIGN_TASK, payload: response.data});
     history.goBack();
 };
 
-
+export const deleteTask = taskId => async (dispatch) => {
+    await tasksService.delete('/deletetask/' + taskId);
+    dispatch({type: DELETE_TASK, payload: taskId});
+    history.goBack();
+};
 
 
 
@@ -176,7 +221,7 @@ export const createReward = formValues => async (dispatch) => {
         claimedByUser: '',
         home: formValues.home
     }
-    console.log(rewardToCreate, "from action");
+
 
     const response = await rewardService.post('/newReward', rewardToCreate);
     dispatch({type: CREATE_REWARD, payload: response.data});
@@ -190,7 +235,7 @@ export const editReward = formValues => async (dispatch) => {
         pointsWorth: parseInt(formValues.form.pointsWorth),
         description: formValues.form.description,
     }
-    console.log(editedReward, "from action");
+
 
     const response = await rewardService.put('/editReward/' + rewardId, editedReward);
     dispatch({type: EDIT_REWARD, payload: response.data});
@@ -204,9 +249,41 @@ export const updateStatusAndUserAssignedReward = (rewardId, status, userId,) => 
         status: status,
         claimedByUser: userId,
     }
-    console.log(rewardToAssign)
+
 
     const response = await rewardService.put('/editReward/' + rewardId, rewardToAssign);
     dispatch({type: ASSIGN_TASK, payload: response.data});
+    history.goBack();
+};
+
+export const deleteReward = rewardId => async (dispatch) => {
+    await rewardService.delete('/deletereward/' + rewardId);
+    dispatch({type: DELETE_REWARD, payload: rewardId});
+    history.goBack();
+};
+
+export const fetchAllTokens = () => async dispatch => {
+    const response = await invitationService.get('/allTokens');
+
+    dispatch({type: FETCH_INVITATION_CODE_LIST, payload: response.data});
+};
+
+export const fetchInvitationCode = (homeId) => async dispatch => {
+    const data = {
+        home: homeId
+    }
+    const response = await invitationService.post('/newToken', data);
+ 
+    dispatch({type: FETCH_INVITATION_CODE, payload: response.data});
+};
+
+export const validateInvitationCode = (token_key, user) => async dispatch => {
+    const data = {
+        token_key: token_key,
+        user: user
+    }
+    const response = await invitationService.post('/joinByToken', data);
+
+    dispatch({type: FETCH_HOME, payload: response.data.home});
     history.goBack();
 };

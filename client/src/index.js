@@ -10,7 +10,6 @@ import reducers from './reducers';
 import Auth0ProviderWithHistory from "./auth/Auth0ProviderWithHistory";
 
 
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     reducers,

@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {createHome} from "../../actions";
 import {Field, reduxForm} from 'redux-form';
-import { withAuth0 } from '@auth0/auth0-react';
+import {withAuth0} from '@auth0/auth0-react';
 
+import {createHome} from "../../actions";
+import {Loading} from "../exportedComponents";
 
 class HomeCreateForm extends React.Component {
     renderError({error, touched}) {
@@ -38,15 +39,27 @@ class HomeCreateForm extends React.Component {
     };
 
     render() {
-        console.log(this.props)
-        return (
-            <div>
-                <h1>Hola {this.props.auth0.user.name}</h1>
-            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
-                <Field name="name" component={this.renderInput} label="Enter Name"/>
+        if (this.props.auth0.isAuthenticated !== true) {
+            return <div className="ui centered grid "><Loading/></div>
+        }
 
-                <button className="ui button primary">Submit</button>
-            </form>
+        return (
+            <div className="">
+                <div className="ui centered grid ">
+                    <div className="center aligned sixteen wide column">
+                        <h1>Hola {this.props.auth0.user.name}</h1>
+                    </div>
+
+                    <div className="box box 1 ">
+                        <form onSubmit={this.props.handleSubmit(this.onSubmit)}
+                              className="center aligned sixteen wide column ui form error evenboxinner">
+                            <p>Enter name</p>
+                            <Field className="center aligned sixteen wide column " name="name"
+                                   component={this.renderInput} label=""/>
+                            <button className="drawn-button">Submit</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }

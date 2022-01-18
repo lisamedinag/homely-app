@@ -1,41 +1,156 @@
-body{
-    transition: all .5s ease;
-}
-
 #root {
     margin-top: auto;
     height: auto;
+    font-family: 'Reenie Beanie', cursive;
 }
 
-.ui .segment {
-    box-shadow: none;
+html {
+    overflow: hidden;
+
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    transition: all .5s ease;
+    font-family: 'Reenie Beanie', cursive;
+    color: rgb(66, 66, 65);
+    background-color: rgba(213, 213, 201, 0.29);
+}
+
+
+
+.navbar-button {
+    font-family: 'Walter Turncoat', cursive;
+    margin-bottom: 0;
+    outline: none;
     border: none;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 0%;
 }
 
-.column{
-    margin: 20px;
-}
-
-.menu{
-    padding: 40px;
-}
-
-button {
+.drawn-button {
     align-self: center;
     background: transparent;
     padding: 1rem 1rem;
     margin-bottom: 0;
     transition: all .5s ease;
-    color: #41403E;
-    font-size: 1.5rem;
+    color: #535251;
+    font-family: 'Walter Turncoat', cursive;
+    font-size: 1.3rem;
     letter-spacing: 1px;
     outline: none;
     box-shadow: 20px 38px 34px -26px hsla(0, 0%, 0%, .2);
     border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 }
 
-button:hover {
+
+
+h1, h2, h3, h4, h5, a {
+    font-family: 'Walter Turncoat', cursive;
+}
+
+a {
+    color: rgb(61, 63, 61);
+    align-self: center;
+}
+
+a p label {
+    font-family: 'Reenie Beanie', cursive;
+}
+
+.curly{
+    font-family: 'Reenie Beanie', cursive;
+}
+
+div p {
+    font-size: 25px;
+}
+
+.drawn-button:hover {
     box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, .3);
+}
+
+.ui .segment {
+    box-shadow: none;
+    border: none;
+    background-color: rgba(213, 213, 201, 0.02);
+}
+
+.ui .form {
+    padding: 0 10px 0 10px;
+    margin: 0%;
+}
+
+.ui .form p{
+    padding: 5px 10px;
+    margin: 0%;
+}
+
+.ui .form button{
+
+    margin: 10px;
+}
+
+.menu {
+    padding: 20px;
+    background-color: rgba(231, 226, 226, 0.212);
+    margin-bottom: 5px;
+}
+
+.menu button, .menu a {
+    padding: 10px;
+}
+
+.main-section {
+    margin-top: 50px;
+}
+
+.box {
+    margin: 25px;
+    width: auto;
+    height: fit-content;
+    float: left;
+}
+
+.box1 {
+    border-width: 3px 4px 3px 5px;
+    border-radius: 95% 4% 92% 5%/4% 95% 6% 95%;
+    transform: rotate(2deg);
+}
+
+.evenboxinner {
+    transform: rotate(2deg);
+    margin: 15px;
+    padding: 9px 11px;
+    float: left;
+    background: #ddd;
+    border: 1px solid #222;
+    box-shadow: 3px 3px 0 rgb(58, 57, 57);
+}
+
+
+.highlight{
+    background-color: rgba(247, 206, 1, 0.62);
+}
+
+
+.reward-highlight{
+    background-color: rgba(109, 97, 231, 0.56);
+}
+
+p {
+    font-size: 25px;
+}
+
+.svg{
+    height: 168px;
+    width: 186px;
+}
+
+.public-dashboard img{
+    width: 40%;
+    max-width: 260px;
 }
 
 @media (max-width:620px) {

@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
 import {fetchPointsByUserAndHome} from "../../actions";
-import Loading from "../utils/Loading";
 
-
+import { Loading } from "../exportedComponents"
 
 class PointsByUserAndHome extends Component {
     componentDidMount() {
-        console.log("did ount")
+ 
         if (this.props.selectedHome && this.props.selectedUser ){
-            console.log("inside the fetch fun")
+ 
             this.props.fetchPointsByUserAndHome(this.props.selectedUser, this.props.selectedHome)
         }
 
@@ -33,8 +31,7 @@ class PointsByUserAndHome extends Component {
 
 
 const mapStateToProps = state => {
-    console.log(state, "state")
-    console.log(state.selectedHome, state.selectedUser, "test state")
+ 
     return {
         points: state.points,
         selectedHome: state.selectedHome,

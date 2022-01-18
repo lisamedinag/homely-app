@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {createTask, editTask} from "../../actions";
 import {Field, reduxForm} from 'redux-form';
 import {withAuth0} from '@auth0/auth0-react';
-import Loading from "../utils/Loading";
+import { editTask} from "../../actions";
 
+import { Loading } from "../exportedComponents"
 
 
 class FormEditTask extends React.Component {
@@ -29,9 +29,6 @@ class FormEditTask extends React.Component {
         );
     };
 
-
-
-
     onSubmit = formValues => {
 
         this.props.editTask({
@@ -46,23 +43,31 @@ class FormEditTask extends React.Component {
         }
 
         if (this.props.selectedTask.status === 'COMPLETED') {
-            return <div>You cant edit a completed task :(</div>
+            return <div><h3>You can't edit a completed task</h3></div>
         }
 
         return (
-            <div>
-                <h1>Create the Task - {this.props.selectedTask.name}</h1>
-                <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
+            <div className="ui centered grid ">
+                <div className="center aligned sixteen wide column">
+                    <h3>Edit the Task - {this.props.selectedTask.name}</h3>
+                </div>
 
-                    <Field name="name" component={this.renderInput} label="Enter Name" placeholder={this.props.selectedTask.name}/>
-                    <Field name="points" component={this.renderInput} label="Enter points" placeholder={this.props.selectedTask.points}/>
-                    <Field name="description" component={this.renderInput} label="Enter description" placeholder={this.props.selectedTask.description}/>
+                <div className="box box 1 ">
+                    <form onSubmit={this.props.handleSubmit(this.onSubmit)}
+                          className="center aligned sixteen wide column ui form error evenboxinner">
+                        <p>Enter name</p>
+                        <Field name="name" component={this.renderInput} label=""
+                               placeholder={this.props.selectedTask.name}/>
+                        <p>Enter points</p>
+                        <Field name="points" component={this.renderInput} label=""
+                               placeholder={this.props.selectedTask.points}/>
+                        <p>Enter description</p>
+                        <Field name="description" component={this.renderInput} label=""
+                               placeholder={this.props.selectedTask.description}/>
 
-
-
-
-                    <button className="ui button primary">Submit</button>
-                </form>
+                        <button className="drawn-button">Submit</button>
+                    </form>
+                </div>
             </div>
         );
     }

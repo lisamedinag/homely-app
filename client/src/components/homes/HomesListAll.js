@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {fetchHomes, fetchPopulatedHomes} from "../../actions";
+import { connect } from "react-redux";
+import { fetchHomes, fetchPopulatedHomes } from "../../actions";
+import {Loading} from "../exportedComponents";
 
 
 class HomesListAll extends Component {
@@ -31,8 +32,11 @@ class HomesListAll extends Component {
         });
     }
     render() {
-        return (
+        if (this.props.homes  === null) {
+            return <div className="ui centered grid "><Loading/></div>
+        }
 
+        return (
                 <div>
                     <h2>Homes</h2>
                     <div className="ui celled list">{this.renderList()}</div>

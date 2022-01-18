@@ -1,11 +1,9 @@
-
-export const CREATE_HOME = 'CREATE_HOME';
-export const FETCH_STREAM = 'FETCH_STREAM';
-export const DELETE_STREAM = 'DELETE_STREAM';
-export const EDIT_HOME = 'EDIT_HOME';
-
 export const FETCH_HOMES = 'FETCH_HOMES';
+export const FETCH_HOME = 'FETCH_HOME';
 export const SELECTED_HOME = 'SELECTED_HOME';
+export const CREATE_HOME = 'CREATE_HOME';
+export const DELETE_HOME = 'DELETE_HOME';
+export const EDIT_HOME = 'EDIT_HOME';
 
 export const FETCH_USERS = 'FETCH_USERS';
 export const SELECTED_USER = 'SELECTED_USER';
@@ -19,11 +17,16 @@ export const SELECTED_TASK = 'SELECTED_TASK';
 export const CREATE_TASK = 'CREATE_TASK';
 export const ASSIGN_TASK = 'ASSIGN_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
 
 export const FETCH_REWARDS = 'FETCH_REWARDS';
 export const SELECTED_REWARD = 'SELECTED_REWARD';
 export const CREATE_REWARD = 'CREATE_REWARD';
 export const ASSIGN_REWARD = 'ASSIGN_REWARD';
 export const EDIT_REWARD = 'EDIT_REWARD';
+export const DELETE_REWARD = 'DELETE_REWARD';
 
 
+export const FETCH_INVITATION_CODE = 'FETCH_INVITATION_CODE'
+export const FETCH_INVITATION_CODE_LIST = 'FETCH_INVITATION_CODE_LIST'
+export const VALIDATE_INVITATION_CODE = 'VALIDATE_INVITATION_CODE'

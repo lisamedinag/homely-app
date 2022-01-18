@@ -1,30 +1,38 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
-import Loading from "../utils/Loading";
 import {connect} from "react-redux";
-import {updateStatusAndUserAssignedTask, fetchTasks, selectTask} from "../../actions";
 import {withAuth0} from "@auth0/auth0-react";
+import {updateStatusAndUserAssignedTask, addPoints } from "../../actions";
+
+import { Loading } from "../exportedComponents"
 
 class AutoAssignOrCompleteTaskButton extends Component {
 
-    updateTask = (taskId, desiredStatus, userId) => {
-        this.props.updateStatusAndUserAssignedTask(taskId, desiredStatus, userId)
+    updateTask = (task, desiredStatus, userId) => {
+ 
+        userId = desiredStatus === "AVAILABLE" ? "AVAILABLE" : userId
+        this.props.updateStatusAndUserAssignedTask(task._id, desiredStatus, userId);
+        if (desiredStatus === "COMPLETED") {
+            this.props.addPoints(
+                userId, this.props.selectedHome._id, task.points
+            )
+        }
+
     }
 
 
     render() {
         const userId = this.props.auth0.user.email;
         const selectedTask = this.props.selectedTask;
+
         if (selectedTask === null || selectedTask === undefined) {
-            return <div/>
+            return <div><Loading/></div>
         }
 
         if (selectedTask.status === "AVAILABLE") {
             return (
-                <div>
-                    you can assign the task to yourself
-                    <button
-                        onClick={() => this.updateTask(selectedTask._id, "ASSIGNED", userId)}>
+                <div  className="center aligned sixteen wide column">
+                    <button className="drawn-button"
+                        onClick={() => this.updateTask(selectedTask, "ASSIGNED", userId)}>
                         I will do it!
                     </button>
                 </div>
@@ -33,19 +41,19 @@ class AutoAssignOrCompleteTaskButton extends Component {
             //TODO FUNCTION TO GET THE POINT FROM A COMPLETED TASK
             return (
                 <div>
-                    <div>
-                        you can set the task as completed and obtain the points
+                    <div className="center aligned sixteen wide column">
                         <button
-                            onClick={() => this.updateTask(selectedTask._id, "COMPLETED", userId)}>
+                            className="drawn-button"
+                            onClick={() => this.updateTask(selectedTask, "COMPLETED", userId)}>
                             Complete the task!
                         </button>
                     </div>
                     <br/>
-                    <div>
-                        you can set the task as completed and obtain the points
+                    <div className="center aligned sixteen wide column">
                         <button
-                            onClick={() => this.updateTask(selectedTask._id, "AVAILABLE", userId)}>
-                            I can't do it
+                            className="drawn-button"
+                            onClick={() => this.updateTask(selectedTask, "AVAILABLE", userId)}>
+                            Resign task
                         </button>
                     </div>
                 </div>)
@@ -55,11 +63,14 @@ class AutoAssignOrCompleteTaskButton extends Component {
 }
 
 const mapStateToProps = state => {
-    return {selectedTask: state.selectedTask};
+    return {
+        selectedTask: state.selectedTask,
+        selectedHome: state.selectedHome
+    };
 
 };
 const authWrapped = withAuth0(AutoAssignOrCompleteTaskButton);
 
 export default connect(
-    mapStateToProps, {updateStatusAndUserAssignedTask: updateStatusAndUserAssignedTask}
+    mapStateToProps, {updateStatusAndUserAssignedTask: updateStatusAndUserAssignedTask, addPoints}
 )(authWrapped);

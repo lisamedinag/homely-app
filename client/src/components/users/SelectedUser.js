@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-
 import { connect } from "react-redux";
-import Loading from "../utils/Loading";
 
+import { Loading } from "../exportedComponents"
 
 class SelectedUser extends Component {
 
@@ -16,7 +15,7 @@ class SelectedUser extends Component {
                 <div className="center aligned sixteen wide column">
                     <h2>{this.props.selectedUser}</h2>
                 </div>
-                <div className="celled list">Aqui irá la lista de rewards, tasks ...</div>
+                <div className="celled list"><p>Aqui irá la lista de rewards, tasks ...</p></div>
             </div>
 
         );

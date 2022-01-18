@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {createReward} from "../../actions";
 import {Field, reduxForm} from 'redux-form';
 import {withAuth0} from '@auth0/auth0-react';
-import Loading from "../utils/Loading";
+import {createReward} from "../../actions";
 
+import { Loading } from "../exportedComponents"
 
 class RewardCreateForm extends React.Component {
     renderError({error, touched}) {
@@ -29,9 +29,8 @@ class RewardCreateForm extends React.Component {
     };
 
 
-
     onSubmit = formValues => {
-        console.log(formValues)
+
         // const user = this.props.auth0.user.isAuthenticated ? this.props.auth0.user.email : null;
         this.props.createReward({
             form: formValues,
@@ -46,19 +45,25 @@ class RewardCreateForm extends React.Component {
             return <div><Loading/></div>
         }
 
-
         return (
-            <div>
-                <h1>Create a Reward for {this.props.selectedHome.name}</h1>
-                <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
+            <div className="ui centered grid ">
+                <div className="center aligned sixteen wide column">
+                    <h3>Create a Reward for {this.props.selectedHome.name}</h3>
+                </div>
 
-                    <Field name="name" component={this.renderInput} label="Enter Name"/>
-                    <Field name="pointsWorth" component={this.renderInput} label="Enter points worth"/>
-                    <Field name="description" component={this.renderInput} label="Enter rewards description"/>
+                <div className="box box 1 ">
+                    <form onSubmit={this.props.handleSubmit(this.onSubmit)}
+                          className="center aligned sixteen wide column ui form error evenboxinner">
+                        <p>Enter name</p>
+                        <Field name="name" component={this.renderInput} label=""/>
+                        <p>Enter points worth</p>
+                        <Field name="pointsWorth" component={this.renderInput} label=" "/>
+                        <p>Enter description</p>
+                        <Field name="description" component={this.renderInput} label=""/>
 
-
-                    <button className="ui button primary">Submit</button>
-                </form>
+                        <button className="drawn-button">Submit</button>
+                    </form>
+                </div>
             </div>
         );
     }
@@ -74,7 +79,6 @@ const validate = formValues => {
     if (!formValues.pointsWorth) {
         errors.name = 'You must enter the amount of points';
     }
-
 
     return errors;
 };
