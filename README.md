@@ -1,6 +1,6 @@
 # Welcome to my homely-app!
 
-Visit the app clicking here:
+Visit the app clicking here: [Homely App Link](https://app.my-homely.life/) 
 
-https://app.my-homely.life/
+
 
